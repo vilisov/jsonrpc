@@ -1,4 +1,4 @@
-module github.com/ybbus/jsonrpc
+module github.com/vilisov/jsonrpc
 
 go 1.12
 

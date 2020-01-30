@@ -165,6 +165,7 @@ func NewRequest(method string, params ...interface{}) *RPCRequest {
 		Method:  method,
 		Params:  Params(params...),
 		JSONRPC: jsonrpcVersion,
+		ID:      "0",
 	}
 
 	return request
@@ -321,6 +322,7 @@ func (client *rpcClient) Call(method string, params ...interface{}) (*RPCRespons
 		Method:  method,
 		Params:  Params(params...),
 		JSONRPC: jsonrpcVersion,
+		ID:      "0",
 	}
 
 	return client.doCall(request)

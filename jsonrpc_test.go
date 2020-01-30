@@ -70,95 +70,95 @@ func TestRpcClient_Call(t *testing.T) {
 	}
 
 	rpcClient.Call("missingParam")
-	Expect((<-requestChan).body).To(Equal(`{"method":"missingParam","id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"missingParam","id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("nullParam", nil)
-	Expect((<-requestChan).body).To(Equal(`{"method":"nullParam","params":[null],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"nullParam","params":[null],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("nullParams", nil, nil)
-	Expect((<-requestChan).body).To(Equal(`{"method":"nullParams","params":[null,null],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"nullParams","params":[null,null],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("emptyParams", []interface{}{})
-	Expect((<-requestChan).body).To(Equal(`{"method":"emptyParams","params":[],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"emptyParams","params":[],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("emptyAnyParams", []string{})
-	Expect((<-requestChan).body).To(Equal(`{"method":"emptyAnyParams","params":[],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"emptyAnyParams","params":[],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("emptyObject", struct{}{})
-	Expect((<-requestChan).body).To(Equal(`{"method":"emptyObject","params":{},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"emptyObject","params":{},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("emptyObjectList", []struct{}{{}, {}})
-	Expect((<-requestChan).body).To(Equal(`{"method":"emptyObjectList","params":[{},{}],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"emptyObjectList","params":[{},{}],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("boolParam", true)
-	Expect((<-requestChan).body).To(Equal(`{"method":"boolParam","params":[true],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"boolParam","params":[true],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("boolParams", true, false, true)
-	Expect((<-requestChan).body).To(Equal(`{"method":"boolParams","params":[true,false,true],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"boolParams","params":[true,false,true],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("stringParam", "Alex")
-	Expect((<-requestChan).body).To(Equal(`{"method":"stringParam","params":["Alex"],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"stringParam","params":["Alex"],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("stringParams", "JSON", "RPC")
-	Expect((<-requestChan).body).To(Equal(`{"method":"stringParams","params":["JSON","RPC"],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"stringParams","params":["JSON","RPC"],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("numberParam", 123)
-	Expect((<-requestChan).body).To(Equal(`{"method":"numberParam","params":[123],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"numberParam","params":[123],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("numberParams", 123, 321)
-	Expect((<-requestChan).body).To(Equal(`{"method":"numberParams","params":[123,321],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"numberParams","params":[123,321],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("floatParam", 1.23)
-	Expect((<-requestChan).body).To(Equal(`{"method":"floatParam","params":[1.23],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"floatParam","params":[1.23],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("floatParams", 1.23, 3.21)
-	Expect((<-requestChan).body).To(Equal(`{"method":"floatParams","params":[1.23,3.21],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"floatParams","params":[1.23,3.21],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("manyParams", "Alex", 35, true, nil, 2.34)
-	Expect((<-requestChan).body).To(Equal(`{"method":"manyParams","params":["Alex",35,true,null,2.34],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"manyParams","params":["Alex",35,true,null,2.34],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("emptyMissingPublicFieldObject", struct{ name string }{name: "Alex"})
-	Expect((<-requestChan).body).To(Equal(`{"method":"emptyMissingPublicFieldObject","params":{},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"emptyMissingPublicFieldObject","params":{},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("singleStruct", person)
-	Expect((<-requestChan).body).To(Equal(`{"method":"singleStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"singleStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("singlePointerToStruct", &person)
-	Expect((<-requestChan).body).To(Equal(`{"method":"singlePointerToStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"singlePointerToStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":"0","jsonrpc":"2.0"}`))
 
 	pp := &person
 	rpcClient.Call("doublePointerStruct", &pp)
-	Expect((<-requestChan).body).To(Equal(`{"method":"doublePointerStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"doublePointerStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("multipleStructs", person, &drink)
-	Expect((<-requestChan).body).To(Equal(`{"method":"multipleStructs","params":[{"name":"Alex","age":35,"country":"Germany"},{"name":"Cuba Libre","ingredients":["rum","cola"]}],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"multipleStructs","params":[{"name":"Alex","age":35,"country":"Germany"},{"name":"Cuba Libre","ingredients":["rum","cola"]}],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("singleStructInArray", []interface{}{person})
-	Expect((<-requestChan).body).To(Equal(`{"method":"singleStructInArray","params":[{"name":"Alex","age":35,"country":"Germany"}],"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"singleStructInArray","params":[{"name":"Alex","age":35,"country":"Germany"}],"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("namedParameters", map[string]interface{}{
 		"name": "Alex",
 		"age":  35,
 	})
-	Expect((<-requestChan).body).To(Equal(`{"method":"namedParameters","params":{"age":35,"name":"Alex"},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"namedParameters","params":{"age":35,"name":"Alex"},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("anonymousStructNoTags", struct {
 		Name string
 		Age  int
 	}{"Alex", 33})
-	Expect((<-requestChan).body).To(Equal(`{"method":"anonymousStructNoTags","params":{"Name":"Alex","Age":33},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"anonymousStructNoTags","params":{"Name":"Alex","Age":33},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("anonymousStructWithTags", struct {
 		Name string `json:"name"`
 		Age  int    `json:"age"`
 	}{"Alex", 33})
-	Expect((<-requestChan).body).To(Equal(`{"method":"anonymousStructWithTags","params":{"name":"Alex","age":33},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"anonymousStructWithTags","params":{"name":"Alex","age":33},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("structWithNullField", struct {
 		Name    string  `json:"name"`
 		Address *string `json:"address"`
 	}{"Alex", nil})
-	Expect((<-requestChan).body).To(Equal(`{"method":"structWithNullField","params":{"name":"Alex","address":null},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"structWithNullField","params":{"name":"Alex","address":null},"id":"0","jsonrpc":"2.0"}`))
 
 	rpcClient.Call("nestedStruct",
 		Planet{
@@ -168,7 +168,7 @@ func TestRpcClient_Call(t *testing.T) {
 				Color:    "red",
 			},
 		})
-	Expect((<-requestChan).body).To(Equal(`{"method":"nestedStruct","params":{"name":"Mars","properties":{"distance":54600000,"color":"red"}},"id":0,"jsonrpc":"2.0"}`))
+	Expect((<-requestChan).body).To(Equal(`{"method":"nestedStruct","params":{"name":"Mars","properties":{"distance":54600000,"color":"red"}},"id":"0","jsonrpc":"2.0"}`))
 }
 
 func TestRpcClient_CallBatch(t *testing.T) {
@@ -193,7 +193,7 @@ func TestRpcClient_CallBatch(t *testing.T) {
 			Params: 3, // invalid, should be []int{3}
 		},
 	})
-	Expect((<-requestChan).body).To(Equal(`[{"method":"singleRequest","params":3,"id":0,"jsonrpc":"2.0"}]`))
+	Expect((<-requestChan).body).To(Equal(`[{"method":"singleRequest","params":3,"id":"0","jsonrpc":"2.0"}]`))
 
 	// better use Params() unless you know what you are doing
 	rpcClient.CallBatch(RPCRequests{
@@ -202,7 +202,7 @@ func TestRpcClient_CallBatch(t *testing.T) {
 			Params: Params(3), // always valid json rpc
 		},
 	})
-	Expect((<-requestChan).body).To(Equal(`[{"method":"singleRequest","params":[3],"id":0,"jsonrpc":"2.0"}]`))
+	Expect((<-requestChan).body).To(Equal(`[{"method":"singleRequest","params":[3],"id":"0","jsonrpc":"2.0"}]`))
 
 	// even better, use NewRequest()
 	rpcClient.CallBatch(RPCRequests{
@@ -210,7 +210,7 @@ func TestRpcClient_CallBatch(t *testing.T) {
 		NewRequest("multipleRequests2", 2),
 		NewRequest("multipleRequests3", 3),
 	})
-	Expect((<-requestChan).body).To(Equal(`[{"method":"multipleRequests1","params":[1],"id":0,"jsonrpc":"2.0"},{"method":"multipleRequests2","params":[2],"id":1,"jsonrpc":"2.0"},{"method":"multipleRequests3","params":[3],"id":2,"jsonrpc":"2.0"}]`))
+	Expect((<-requestChan).body).To(Equal(`[{"method":"multipleRequests1","params":[1],"id":"0","jsonrpc":"2.0"},{"method":"multipleRequests2","params":[2],"id":"1","jsonrpc":"2.0"},{"method":"multipleRequests3","params":[3],"id":"2","jsonrpc":"2.0"}]`))
 
 	// test a huge batch request
 	requests := RPCRequests{
@@ -253,70 +253,70 @@ func TestRpcClient_CallBatch(t *testing.T) {
 	}
 	rpcClient.CallBatch(requests)
 
-	Expect((<-requestChan).body).To(Equal(`[{"method":"nullParam","params":[null],"id":0,"jsonrpc":"2.0"},` +
-		`{"method":"nullParams","params":[null,null],"id":1,"jsonrpc":"2.0"},` +
-		`{"method":"emptyParams","params":[],"id":2,"jsonrpc":"2.0"},` +
-		`{"method":"emptyAnyParams","params":[],"id":3,"jsonrpc":"2.0"},` +
-		`{"method":"emptyObject","params":{},"id":4,"jsonrpc":"2.0"},` +
-		`{"method":"emptyObjectList","params":[{},{}],"id":5,"jsonrpc":"2.0"},` +
-		`{"method":"boolParam","params":[true],"id":6,"jsonrpc":"2.0"},` +
-		`{"method":"boolParams","params":[true,false,true],"id":7,"jsonrpc":"2.0"},` +
-		`{"method":"stringParam","params":["Alex"],"id":8,"jsonrpc":"2.0"},` +
-		`{"method":"stringParams","params":["JSON","RPC"],"id":9,"jsonrpc":"2.0"},` +
-		`{"method":"numberParam","params":[123],"id":10,"jsonrpc":"2.0"},` +
-		`{"method":"numberParams","params":[123,321],"id":11,"jsonrpc":"2.0"},` +
-		`{"method":"floatParam","params":[1.23],"id":12,"jsonrpc":"2.0"},` +
-		`{"method":"floatParams","params":[1.23,3.21],"id":13,"jsonrpc":"2.0"},` +
-		`{"method":"manyParams","params":["Alex",35,true,null,2.34],"id":14,"jsonrpc":"2.0"},` +
-		`{"method":"emptyMissingPublicFieldObject","params":{},"id":15,"jsonrpc":"2.0"},` +
-		`{"method":"singleStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":16,"jsonrpc":"2.0"},` +
-		`{"method":"singlePointerToStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":17,"jsonrpc":"2.0"},` +
-		`{"method":"multipleStructs","params":[{"name":"Alex","age":35,"country":"Germany"},{"name":"Cuba Libre","ingredients":["rum","cola"]}],"id":18,"jsonrpc":"2.0"},` +
-		`{"method":"singleStructInArray","params":[{"name":"Alex","age":35,"country":"Germany"}],"id":19,"jsonrpc":"2.0"},` +
-		`{"method":"namedParameters","params":{"age":35,"name":"Alex"},"id":20,"jsonrpc":"2.0"},` +
-		`{"method":"anonymousStructNoTags","params":{"Name":"Alex","Age":33},"id":21,"jsonrpc":"2.0"},` +
-		`{"method":"anonymousStructWithTags","params":{"name":"Alex","age":33},"id":22,"jsonrpc":"2.0"},` +
-		`{"method":"structWithNullField","params":{"name":"Alex","address":null},"id":23,"jsonrpc":"2.0"}]`))
+	Expect((<-requestChan).body).To(Equal(`[{"method":"nullParam","params":[null],"id":"0","jsonrpc":"2.0"},` +
+		`{"method":"nullParams","params":[null,null],"id":"1","jsonrpc":"2.0"},` +
+		`{"method":"emptyParams","params":[],"id":"2","jsonrpc":"2.0"},` +
+		`{"method":"emptyAnyParams","params":[],"id":"3","jsonrpc":"2.0"},` +
+		`{"method":"emptyObject","params":{},"id":"4","jsonrpc":"2.0"},` +
+		`{"method":"emptyObjectList","params":[{},{}],"id":"5","jsonrpc":"2.0"},` +
+		`{"method":"boolParam","params":[true],"id":"6","jsonrpc":"2.0"},` +
+		`{"method":"boolParams","params":[true,false,true],"id":"7","jsonrpc":"2.0"},` +
+		`{"method":"stringParam","params":["Alex"],"id":"8","jsonrpc":"2.0"},` +
+		`{"method":"stringParams","params":["JSON","RPC"],"id":"9","jsonrpc":"2.0"},` +
+		`{"method":"numberParam","params":[123],"id":"10","jsonrpc":"2.0"},` +
+		`{"method":"numberParams","params":[123,321],"id":"11","jsonrpc":"2.0"},` +
+		`{"method":"floatParam","params":[1.23],"id":"12","jsonrpc":"2.0"},` +
+		`{"method":"floatParams","params":[1.23,3.21],"id":"13","jsonrpc":"2.0"},` +
+		`{"method":"manyParams","params":["Alex",35,true,null,2.34],"id":"14","jsonrpc":"2.0"},` +
+		`{"method":"emptyMissingPublicFieldObject","params":{},"id":"15","jsonrpc":"2.0"},` +
+		`{"method":"singleStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":"16","jsonrpc":"2.0"},` +
+		`{"method":"singlePointerToStruct","params":{"name":"Alex","age":35,"country":"Germany"},"id":"17","jsonrpc":"2.0"},` +
+		`{"method":"multipleStructs","params":[{"name":"Alex","age":35,"country":"Germany"},{"name":"Cuba Libre","ingredients":["rum","cola"]}],"id":"18","jsonrpc":"2.0"},` +
+		`{"method":"singleStructInArray","params":[{"name":"Alex","age":35,"country":"Germany"}],"id":"19","jsonrpc":"2.0"},` +
+		`{"method":"namedParameters","params":{"age":35,"name":"Alex"},"id":"20","jsonrpc":"2.0"},` +
+		`{"method":"anonymousStructNoTags","params":{"Name":"Alex","Age":33},"id":"21","jsonrpc":"2.0"},` +
+		`{"method":"anonymousStructWithTags","params":{"name":"Alex","age":33},"id":"22","jsonrpc":"2.0"},` +
+		`{"method":"structWithNullField","params":{"name":"Alex","address":null},"id":"23","jsonrpc":"2.0"}]`))
 
 	// create batch manually
 	requests = []*RPCRequest{
 		{
 			Method:  "myMethod1",
 			Params:  []int{1},
-			ID:      123,   // will be forced to requests[i].ID == i unless you use CallBatchRaw
+			ID:      "123", // will be forced to requests[i].ID == i unless you use CallBatchRaw
 			JSONRPC: "7.0", // will be forced to "2.0"  unless you use CallBatchRaw
 		},
 		{
 			Method:  "myMethod2",
 			Params:  &person,
-			ID:      321,     // will be forced to requests[i].ID == i unless you use CallBatchRaw
+			ID:      "321",   // will be forced to requests[i].ID == i unless you use CallBatchRaw
 			JSONRPC: "wrong", // will be forced to "2.0" unless you use CallBatchRaw
 		},
 	}
 	rpcClient.CallBatch(requests)
 
-	Expect((<-requestChan).body).To(Equal(`[{"method":"myMethod1","params":[1],"id":0,"jsonrpc":"2.0"},` +
-		`{"method":"myMethod2","params":{"name":"Alex","age":35,"country":"Germany"},"id":1,"jsonrpc":"2.0"}]`))
+	Expect((<-requestChan).body).To(Equal(`[{"method":"myMethod1","params":[1],"id":"0","jsonrpc":"2.0"},` +
+		`{"method":"myMethod2","params":{"name":"Alex","age":35,"country":"Germany"},"id":"1","jsonrpc":"2.0"}]`))
 
 	// use raw batch
 	requests = []*RPCRequest{
 		{
 			Method:  "myMethod1",
 			Params:  []int{1},
-			ID:      123,
+			ID:      "123",
 			JSONRPC: "7.0",
 		},
 		{
 			Method:  "myMethod2",
 			Params:  &person,
-			ID:      321,
+			ID:      "321",
 			JSONRPC: "wrong",
 		},
 	}
 	rpcClient.CallBatchRaw(requests)
 
-	Expect((<-requestChan).body).To(Equal(`[{"method":"myMethod1","params":[1],"id":123,"jsonrpc":"7.0"},` +
-		`{"method":"myMethod2","params":{"name":"Alex","age":35,"country":"Germany"},"id":321,"jsonrpc":"wrong"}]`))
+	Expect((<-requestChan).body).To(Equal(`[{"method":"myMethod1","params":[1],"id":"123","jsonrpc":"7.0"},` +
+		`{"method":"myMethod2","params":{"name":"Alex","age":35,"country":"Germany"},"id":"321","jsonrpc":"wrong"}]`))
 }
 
 // test if the result of an an rpc request is parsed correctly and if errors are thrown correctly
@@ -704,14 +704,14 @@ func TestRpcBatchJsonResponseStruct(t *testing.T) {
 	Expect(res).To(BeNil())*/
 
 	// result string is ok
-	responseBody = `[{"result": "ok","id":0}]`
+	responseBody = `[{"result": "ok","id":"0"}]`
 	res, err = rpcClient.CallBatch(RPCRequests{
 		NewRequest("something", 1, 2, 3),
 	})
 	<-requestChan
 	Expect(err).To(BeNil())
 	Expect(res[0].Result).To(Equal("ok"))
-	Expect(res[0].ID).To(Equal(0))
+	Expect(res[0].ID).To(Equal("0"))
 
 	// result with error null is ok
 	responseBody = `[{"result": "ok", "error": null}]`
@@ -802,7 +802,7 @@ func TestRpcBatchJsonResponseStruct(t *testing.T) {
 	Expect(i).To(Equal(int64(0)))
 
 	var p *Person
-	responseBody = `[{"id":0, "result": {"name": "Alex", "age": 35}}, {"id":2, "result": {"name": "Lena", "age": 2}}]`
+	responseBody = `[{"id":"0", "result": {"name": "Alex", "age": 35}}, {"id":"2", "result": {"name": "Lena", "age": 2}}]`
 	res, err = rpcClient.CallBatch(RPCRequests{
 		NewRequest("something", 1, 2, 3),
 	})
@@ -811,10 +811,10 @@ func TestRpcBatchJsonResponseStruct(t *testing.T) {
 	Expect(err).To(BeNil())
 
 	Expect(res[0].Error).To(BeNil())
-	Expect(res[0].ID).To(Equal(0))
+	Expect(res[0].ID).To(Equal("0"))
 
 	Expect(res[1].Error).To(BeNil())
-	Expect(res[1].ID).To(Equal(2))
+	Expect(res[1].ID).To(Equal("2"))
 
 	err = res[0].GetObject(&p)
 	Expect(p.Name).To(Equal("Alex"))
@@ -851,7 +851,7 @@ func TestRpcBatchJsonResponseStruct(t *testing.T) {
 	Expect(res.HasError()).To(BeTrue())
 
 	// check if response mapping works
-	responseBody = `[{ "id":123,"result": 123},{ "id":1,"result": 1}]`
+	responseBody = `[{ "id":"123","result": 123},{ "id":"1","result": 1}]`
 	res, err = rpcClient.CallBatch(RPCRequests{
 		NewRequest("something", 1, 2, 3),
 	})
@@ -860,13 +860,13 @@ func TestRpcBatchJsonResponseStruct(t *testing.T) {
 	Expect(res.HasError()).To(BeFalse())
 	resMap := res.AsMap()
 
-	int1, _ := resMap[1].GetInt()
-	int123, _ := resMap[123].GetInt()
+	int1, _ := resMap["1"].GetInt()
+	int123, _ := resMap["123"].GetInt()
 	Expect(int1).To(Equal(int64(1)))
 	Expect(int123).To(Equal(int64(123)))
 
 	// check if getByID works
-	int123, _ = res.GetByID(123).GetInt()
+	int123, _ = res.GetByID("123").GetInt()
 	Expect(int123).To(Equal(int64(123)))
 
 	// check if error occurred
@@ -1012,7 +1012,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 	rpcClient := NewClient(httpServer.URL)
 
 	i := 0
-	responseBody = `{"result":3,"id":0,"jsonrpc":"2.0"}`
+	responseBody = `{"result":3,"id":"0","jsonrpc":"2.0"}`
 	err := rpcClient.CallFor(&i, "something", 1, 2, 3)
 	<-requestChan
 	Expect(err).To(BeNil())
@@ -1020,7 +1020,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 
 	/*
 		i = 3
-		responseBody = `{"result":null,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":null,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&i, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1028,20 +1028,20 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(i).To(Equal(3))
 
 		var pi *int
-		responseBody = `{"result":4,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":4,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(pi, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).NotTo(BeNil())
 		Expect(pi).To(BeNil())
 
-		responseBody = `{"result":4,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":4,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&pi, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
 		Expect(*pi).To(Equal(4))
 
 		*pi = 3
-		responseBody = `{"result":null,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":null,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&pi, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1049,7 +1049,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(pi).To(BeNil())
 
 		p := &Person{}
-		responseBody = `{"result":null,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":null,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(p, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1057,7 +1057,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p).NotTo(BeNil())
 
 		var p2 *Person
-		responseBody = `{"result":null,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":null,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(p2, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).NotTo(BeNil())
@@ -1065,7 +1065,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p2).To(BeNil())
 
 		p3 := Person{}
-		responseBody = `{"result":null,"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":null,"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&p3, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1073,7 +1073,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p).NotTo(BeNil())
 
 		p = &Person{Age: 35}
-		responseBody = `{"result":{"name":"Alex"},"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":{"name":"Alex"},"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(p, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1082,7 +1082,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p.Age).To(Equal(35))
 
 		p2 = nil
-		responseBody = `{"result":{"name":"Alex"},"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":{"name":"Alex"},"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(p2, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).NotTo(BeNil())
@@ -1090,7 +1090,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p2).To(BeNil())
 
 		p2 = nil
-		responseBody = `{"result":{"name":"Alex"},"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":{"name":"Alex"},"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&p2, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1099,7 +1099,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p2.Name).To(Equal("Alex"))
 
 		p3 = Person{Age: 35}
-		responseBody = `{"result":{"name":"Alex"},"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":{"name":"Alex"},"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&p3, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1108,7 +1108,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p.Age).To(Equal(35))
 
 		p3 = Person{Age: 35}
-		responseBody = `{"result":{"name":"Alex"},"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":{"name":"Alex"},"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&p3, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
@@ -1117,7 +1117,7 @@ func TestRpcClient_CallFor(t *testing.T) {
 		Expect(p.Age).To(Equal(35))
 
 		var intArray []int
-		responseBody = `{"result":[1, 2, 3],"id":0,"jsonrpc":"2.0"}`
+		responseBody = `{"result":[1, 2, 3],"id":"0","jsonrpc":"2.0"}`
 		err = rpcClient.CallFor(&intArray, "something", 1, 2, 3)
 		<-requestChan
 		Expect(err).To(BeNil())
